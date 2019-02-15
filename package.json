@@ -4,8 +4,20 @@
   "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
   "main": "index.js",
   "scripts": {
+    "start": "node node_modules/.bin/ts-node --type-check Application/mdautolink.ts",
+    "lint": "npx tslint --project .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^10.12.21",
+    "tslint": "^5.12.1"
+  }
 }
