@@ -1,0 +1,11 @@
+{
+  "name": "mdautolink",
+  "version": "1.0.0",
+  "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
+  "license": "ISC"
+}
