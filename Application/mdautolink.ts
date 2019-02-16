@@ -1,6 +1,10 @@
 import chalk from 'chalk';
-import {access, constants as fseConstants} from 'fs-extra';
+import {access, constants as fseConstants, copyFile, readFile, writeFile} from 'fs-extra';
 import * as minimst from 'minimist';
+import {autolink} from '../autolink';
+import parse = require('remark-parse');
+import stringify = require('remark-stringify');
+import unified = require('unified');
 
 const args = minimst(process.argv.slice(2));
 
@@ -31,5 +35,26 @@ Usage:
       console.log(chalk.red(`${mdfile} is not a readable markdown file.`));
       process.exit(1);
     }
+  }
+
+  const processor = unified()
+    .use(parse)
+    .use(autolink)
+    .use(stringify);
+
+  for (const mdfile of args._) {
+    /* tslint:disable-next-line no-console */
+    console.log(`Processing ${mdfile}.`);
+    const input = await readFile(mdfile, 'utf-8');
+    /* tslint:disable-next-line no-console */
+    const result = await processor.process(input);
+    /* tslint:disable-next-line no-console */
+    const backupFile = `${mdfile}.bak`;
+    /* tslint:disable-next-line no-console */
+    console.log(`Creating Backup at ${backupFile}`);
+    await copyFile(mdfile, backupFile);
+    /* tslint:disable-next-line no-console */
+    console.log(`Updating ${mdfile}`);
+    await writeFile(mdfile, String(result));
   }
 })();
