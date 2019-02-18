@@ -12,6 +12,12 @@ always searching for those links by myself and inserting them, I created this
 tooling, to scan _empty links_ (`[some link text]()`), for me automatically and
 allow me to choose between the first google results for them.
 
+## Install
+
+```shell
+npm install -g mdautolink
+```
+
 ## Usage
 
 ```shell
