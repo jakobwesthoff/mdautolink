@@ -21,5 +21,5 @@ npm install -g mdautolink
 ## Usage
 
 ```shell
-mdautoln <markdown-document.md>
+mdautolink <markdown-document.md>
 ```
