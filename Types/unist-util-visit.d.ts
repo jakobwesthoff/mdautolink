@@ -1,12 +1,5 @@
 declare module 'unist-util-visit' {
-  import {Node} from 'unist';
-
-  function visit(
-    tree: Node,
-    test: string[] | string,
-    visitor: (node: Node, index: number, parent: Node) => void,
-    reverse?: any
-  ): void;
+  function visit(tree: any, test: any, visitor: any, reverse?: any): void;
 
   export = visit;
 }
