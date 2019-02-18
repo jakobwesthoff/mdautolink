@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node node_modules/.bin/ts-node --files --type-check Application/mdautolink.ts",
     "lint": "npx tslint --project .",
+    "build": "npx webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
@@ -25,13 +26,19 @@
     "unist-util-visit": "^1.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
     "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^5.0.5",
     "@types/inquirer": "0.0.43",
     "@types/lodash": "^4.14.121",
     "@types/minimist": "^1.2.0",
     "@types/node": "^10.12.21",
+    "babel-loader": "^8.0.5",
+    "ts-loader": "^5.3.3",
     "tslint": "^5.12.1",
-    "unified": "^7.1.0"
+    "unified": "^7.1.0",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   }
 }
