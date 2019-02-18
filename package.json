@@ -14,7 +14,7 @@
       "mdautolink": "./Distribution/mdautolink.js"
   },
   "files": [
-      "./Distribution/mdautolink.js"
+      "Distribution/mdautolink.js"
   ],
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
   "license": "MIT",
