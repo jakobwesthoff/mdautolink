@@ -13,8 +13,11 @@
   "bin": {
       "mdautolink": "./Distribution/mdautolink.js"
   },
+  "files": [
+      "./Distribution/mdautolink.js"
+  ],
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
     "fs-extra": "^7.0.1",
