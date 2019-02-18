@@ -7,7 +7,11 @@
     "start": "node node_modules/.bin/ts-node --files --type-check Application/mdautolink.ts",
     "lint": "npx tslint --project .",
     "build": "npx webpack",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+      "mdautolink": "./Distribution/mdautolink.js"
   },
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
   "license": "ISC",
