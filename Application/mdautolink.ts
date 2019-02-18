@@ -1,7 +1,9 @@
 import chalk from 'chalk';
 import {access, constants as fseConstants, copyFile, readFile, writeFile} from 'fs-extra';
 import * as minimst from 'minimist';
-import {autolink} from '../autolink';
+import {autolinkExtractor, EmptyLink} from '../Library/autolinkExtractor';
+import {autolinkInjector} from '../Library/autolinkInjector';
+import {SelectedLink, selectGoogleResultForEmptyLink} from '../Library/selectGoogleResultForEmptyLink';
 import parse = require('remark-parse');
 import stringify = require('remark-stringify');
 import unified = require('unified');
@@ -14,7 +16,10 @@ const usage = () => {
 Markdown Auto Link
 
 Usage:
-  ${process.argv[0]}: <markdown-files...>
+  ${process.argv[0]}: [--force] <markdown-files...>
+
+  Options:
+    --force: Do not create Backup (.bak) file while processing
 
 `);
 };
@@ -37,22 +42,38 @@ Usage:
     }
   }
 
-  const processor = unified()
-    .use(parse)
-    .use(autolink)
-    .use(stringify);
-
   for (const mdfile of args._) {
+    const extractedEmptyLinks = new Set<EmptyLink>();
+
+    const extractor = unified()
+      .use(parse)
+      .use(autolinkExtractor(extractedEmptyLinks))
+      .use(stringify);
+
     /* tslint:disable-next-line no-console */
     console.log(`Processing ${mdfile}.`);
     const input = await readFile(mdfile, 'utf-8');
     /* tslint:disable-next-line no-console */
-    const result = await processor.process(input);
-    /* tslint:disable-next-line no-console */
-    const backupFile = `${mdfile}.bak`;
-    /* tslint:disable-next-line no-console */
-    console.log(`Creating Backup at ${backupFile}`);
-    await copyFile(mdfile, backupFile);
+    console.log(`Isolating empty links.`);
+    await extractor.process(input);
+    const selectedLinks = new Set<SelectedLink>();
+    for (const emptyLink of extractedEmptyLinks) {
+      selectedLinks.add(await selectGoogleResultForEmptyLink(emptyLink));
+    }
+
+    const injector = unified()
+      .use(parse)
+      .use(autolinkInjector(selectedLinks))
+      .use(stringify);
+
+    const result = await injector.process(input);
+
+    if (!args.force) {
+      const backupFile = `${mdfile}.bak`;
+      /* tslint:disable-next-line no-console */
+      console.log(`Creating Backup at ${backupFile}`);
+      await copyFile(mdfile, backupFile);
+    }
     /* tslint:disable-next-line no-console */
     console.log(`Updating ${mdfile}`);
     await writeFile(mdfile, String(result));
