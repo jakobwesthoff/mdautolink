@@ -9,6 +9,7 @@ export const autolinkInjector = (selectedLinks: Set<SelectedLink>): any => () =>
   };
 
   const toPlainNode = (node: Node) => {
+    //@Hack: Not the niceset implementation, but it surely works.
     return JSON.parse(JSON.stringify(node));
   };
 

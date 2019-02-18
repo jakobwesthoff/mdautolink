@@ -21,11 +21,9 @@ export const selectGoogleResultForEmptyLink = async (emptyLink: EmptyLink): Prom
   /* tslint:disable-next-line no-console */
   console.log(`Searching Google for '${emptyLink.linkText}'...`);
   const links = await fetchResultsFromGoogle(emptyLink.linkText);
-  /* tslint:disable-next-line no-console */
-  console.log(links);
   if (links.length === 0) {
     /* tslint:disable-next-line no-console */
-    console.log(chalk.red(`No results for '${emptyLink.linkText}' found. Most likely google blocked us.`));
+    console.log(chalk.red(`No results for '${emptyLink.linkText}' found.`));
     return {...emptyLink, selectedUrl: ''};
   }
   const question: Object = {
