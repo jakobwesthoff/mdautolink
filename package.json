@@ -1,20 +1,20 @@
 {
   "name": "mdautolink",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
-  "main": "Distribution/mdautolink.js",
+  "main": "Distribution/mdautolink.bin.js",
   "scripts": {
     "start": "node node_modules/.bin/ts-node --files --type-check Application/mdautolink.ts",
     "lint": "npx tslint --project .",
-    "build": "npx webpack",
+    "build": "npx webpack && echo '#!/usr/bin/env node' >Distribution/mdautolink.bin.js && cat Distribution/mdautolink.js >>Distribution/mdautolink.bin.js",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "mdautolink": "./Distribution/mdautolink.js"
+    "mdautolink": "./Distribution/mdautolink.bin.js"
   },
   "files": [
-    "Distribution/mdautolink.js"
+    "Distribution/mdautolink.bin.js"
   ],
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
   "license": "MIT",
