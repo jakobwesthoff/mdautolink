@@ -18,6 +18,8 @@
   ],
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
   "license": "MIT",
+  "homepage": "https://github.com/jakobwesthoff/mdautolink#readme",
+  "repository": "github:jakobwesthoff/mdautolink",
   "dependencies": {
     "fs-extra": "^7.0.1"
   },
