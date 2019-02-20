@@ -1,6 +1,6 @@
 {
   "name": "mdautolink",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
   "main": "Distribution/mdautolink.js",
   "scripts": {
