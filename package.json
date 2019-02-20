@@ -2,7 +2,7 @@
   "name": "mdautolink",
   "version": "1.0.0",
   "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
-  "main": "index.js",
+  "main": "Distribution/mdautolink.js",
   "scripts": {
     "start": "node node_modules/.bin/ts-node --files --type-check Application/mdautolink.ts",
     "lint": "npx tslint --project .",
@@ -11,16 +11,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-      "mdautolink": "./Distribution/mdautolink.js"
+    "mdautolink": "./Distribution/mdautolink.js"
   },
   "files": [
-      "Distribution/mdautolink.js"
+    "Distribution/mdautolink.js"
   ],
   "author": "Jakob Westhoff <jakob@westhoffswelt.de>",
   "license": "MIT",
   "dependencies": {
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
     "chalk": "^2.4.2",
-    "fs-extra": "^7.0.1",
     "google": "^2.1.0",
     "inquirer": "^6.2.2",
     "lodash": "^4.17.11",
@@ -30,9 +32,7 @@
     "request": "^2.88.0",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.1",
-    "unist-util-visit": "^1.4.0"
-  },
-  "devDependencies": {
+    "unist-util-visit": "^1.4.0",
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
     "@types/chalk": "^2.2.0",
