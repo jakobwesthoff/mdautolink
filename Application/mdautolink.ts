@@ -78,7 +78,13 @@ Usage:
     const injector = unified()
       .use(parse)
       .use(autolinkInjector(selectedLinks))
-      .use(stringify);
+      .use(stringify, {
+        fences: true,
+        bullet: '*',
+        rule: '-',
+        strong: '*',
+        emphasis: '*',
+      });
 
     const result = await injector.process(input);
 
