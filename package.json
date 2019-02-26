@@ -1,7 +1,8 @@
 {
   "name": "mdautolink",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Tooling to automatically fill basic links in markdown pages with one of their first google search matches.",
+  "keywords": ["markdown", "google", "link", "url", "parser", "excutable"],
   "main": "Distribution/mdautolink.bin.js",
   "scripts": {
     "start": "node node_modules/.bin/ts-node --files --type-check Application/mdautolink.ts",
