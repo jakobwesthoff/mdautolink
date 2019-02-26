@@ -4,8 +4,11 @@ import * as minimst from 'minimist';
 import {autolinkExtractor, EmptyLink} from '../Library/autolinkExtractor';
 import {autolinkInjector} from '../Library/autolinkInjector';
 import {SelectedLink, selectGoogleResultForEmptyLink} from '../Library/selectGoogleResultForEmptyLink';
+/* tslint:disable-next-line ordered-imports*/
 import parse = require('remark-parse');
+/* tslint:disable-next-line ordered-imports*/
 import stringify = require('remark-stringify');
+/* tslint:disable-next-line ordered-imports*/
 import unified = require('unified');
 
 const args = minimst(process.argv.slice(2));
@@ -26,7 +29,6 @@ Usage:
 
 (async () => {
   if (args._.length === 0) {
-    /* tslint:disable-next-line no-console */
     usage();
     process.exit(1);
   }
@@ -57,8 +59,20 @@ Usage:
     console.log(`Isolating empty links.`);
     await extractor.process(input);
     const selectedLinks = new Set<SelectedLink>();
-    for (const emptyLink of extractedEmptyLinks) {
-      selectedLinks.add(await selectGoogleResultForEmptyLink(emptyLink));
+    const sortedEmptyLinks = Array.from(
+      extractedEmptyLinks).sort((a: EmptyLink, b: EmptyLink) => a.linkText.localeCompare(b.linkText),
+    );
+    let lastLink: SelectedLink | undefined;
+    for (const emptyLink of sortedEmptyLinks) {
+      if (lastLink !== undefined && lastLink.linkText === emptyLink.linkText) {
+        const {node, linkText} = emptyLink;
+        const {selectedUrl} = lastLink;
+        selectedLinks.add({node, linkText, selectedUrl});
+      } else {
+        const selectedLink = await selectGoogleResultForEmptyLink(emptyLink);
+        selectedLinks.add(selectedLink);
+        lastLink = selectedLink;
+      }
     }
 
     const injector = unified()

@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import * as inquirer from 'inquirer';
 import {EmptyLink} from './autolinkExtractor';
+/* tslint:disable-next-line ordered-imports*/
 import google = require('google');
 
 export interface SelectedLink extends EmptyLink {
@@ -13,7 +14,7 @@ interface SelectedUrlAnswers {
 
 export interface Link {
   title: string;
-  href: string|null;
+  href: string | null;
   description: string;
 }
 
@@ -26,7 +27,7 @@ export const selectGoogleResultForEmptyLink = async (emptyLink: EmptyLink): Prom
     console.log(chalk.red(`No results for '${emptyLink.linkText}' found.`));
     return {...emptyLink, selectedUrl: ''};
   }
-  const question: Object = {
+  const question: object = {
     type: 'list',
     name: 'selectedUrl',
     message: `Select link for search term '${emptyLink.linkText}'`,
@@ -36,15 +37,13 @@ export const selectGoogleResultForEmptyLink = async (emptyLink: EmptyLink): Prom
   return {...emptyLink, selectedUrl: answer.selectedUrl};
 };
 
-const fetchResultsFromGoogle = (searchTerm: string) => {
-  return new Promise<Link[]>(
-    (resolve, reject) => {
-      google.resultsPerPage = 10;
-      google(searchTerm, (err, res) => {
-        if (err) {
-          reject(err);
-        }
-        resolve((res.links as Link[]).filter((link: Link) => link.href !== null));
-      });
+const fetchResultsFromGoogle = (searchTerm: string) => new Promise<Link[]>(
+  (resolve, reject) => {
+    google.resultsPerPage = 10;
+    google(searchTerm, (err, res) => {
+      if (err) {
+        reject(err);
+      }
+      resolve((res.links as Link[]).filter((link: Link) => link.href !== null));
     });
-};
+  });

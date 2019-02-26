@@ -1,6 +1,7 @@
 import {isEqual} from 'lodash';
 import {Node} from 'unist';
 import {SelectedLink} from './selectGoogleResultForEmptyLink';
+/* tslint:disable-next-line ordered-imports*/
 import visit = require('unist-util-visit');
 
 export const autolinkInjector = (selectedLinks: Set<SelectedLink>): any => () => {
@@ -9,7 +10,7 @@ export const autolinkInjector = (selectedLinks: Set<SelectedLink>): any => () =>
   };
 
   const toPlainNode = (node: Node) => {
-    //@Hack: Not the niceset implementation, but it surely works.
+    // @Hack: Not the nicest implementation, but it surely works.
     return JSON.parse(JSON.stringify(node));
   };
 
